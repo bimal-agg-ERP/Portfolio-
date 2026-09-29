@@ -370,34 +370,215 @@
       border-bottom: 1px solid var(--line);
     }
 
-    /* ===== Different color band: 02 / Recognition → 05 / Education ===== */
+    /* =====================================================================
+       Separate color per section (02 → 05).
+       Each .zone-* sets its own palette through CSS variables:
+         --zone-bg : full-width background band
+         --green   : accent color   --lime : highlight color
+         --line    : borders        --soft : soft tinted panels
+       ===================================================================== */
     .zone {
-      --green: #b45309;
-      --lime: #fde68a;
-      --line: #f0dcbc;
-      --tag-bg: #fdefd2;
-      background: #fff8ec;
+      background: var(--zone-bg);
       /* extends the background edge-to-edge without changing layout */
-      box-shadow: 0 0 0 100vmax #fff8ec;
+      box-shadow: 0 0 0 100vmax var(--zone-bg);
       clip-path: inset(0 -100vmax);
     }
 
-    .zone .experience {
-      background: #fdefd2;
+    .zone-recognition {
+      --zone-bg: #fff8ec;
+      --green: #b45309;
+      --lime: #fde68a;
+      --line: #f0dcbc;
+      --soft: #fdefd2;
     }
 
-    .zone .card {
-      border-color: #f0dcbc;
+    .zone-experience {
+      --zone-bg: #eef4ff;
+      --green: #1d4ed8;
+      --lime: #bfdbfe;
+      --line: #cfdcf5;
+      --soft: #dbe7fd;
     }
 
-    .zone .feedback-card:nth-child(2) {
+    .zone-skills {
+      --zone-bg: #f5f0ff;
+      --green: #6d28d9;
+      --lime: #ddd6fe;
+      --line: #e0d5f7;
+      --soft: #e9e0fc;
+    }
+
+    .zone-education {
+      --zone-bg: #fff0f3;
+      --green: #be123c;
+      --lime: #fecdd3;
+      --line: #f6cfd6;
+      --soft: #fde0e6;
+    }
+
+    /* ---------- 02 / Recognition (amber) ---------- */
+    .zone-recognition .feedback-card {
+      border-color: var(--line);
+      border-top: 4px solid var(--green);
+      transition:
+        transform 0.25s,
+        box-shadow 0.25s,
+        border-color 0.25s;
+    }
+
+    .zone-recognition .feedback-card:nth-child(2) {
       border-top-color: var(--green);
     }
 
-    .zone .excel-link {
-      background: #fdefd2;
+    .zone-recognition .feedback-card:hover,
+    .zone-recognition .feedback-card:focus-within {
+      transform: translateY(-8px);
+      border-color: var(--green);
+      box-shadow: 0 18px 36px #b4530930;
     }
-    /* ================================================================== */
+
+    .zone-recognition .thumb {
+      border-color: var(--line);
+      cursor: zoom-in;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .zone-recognition .thumb:hover {
+      box-shadow: 0 8px 22px #b4530926;
+    }
+
+    .zone-recognition .gallery-item figcaption::after {
+      content: " · Click to enlarge ↗";
+      color: var(--green);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .zone-recognition .feedback-card:hover figcaption::after,
+    .zone-recognition .feedback-card:focus-within figcaption::after {
+      opacity: 1;
+    }
+
+    /* ---------- 03 / Experience (blue) ---------- */
+    .zone-experience .experience {
+      background: var(--soft);
+      border-left: 6px solid var(--green);
+    }
+
+    .zone-experience .experience .date {
+      display: inline-block;
+      background: var(--green);
+      color: #fff;
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin: 0 0 8px;
+    }
+
+    .zone-experience .experience ul {
+      list-style: none;
+      padding: 0;
+      margin: 15px 0 0;
+    }
+
+    .zone-experience .experience li {
+      position: relative;
+      margin: 8px 0;
+      padding: 12px 16px 12px 42px;
+      border-radius: 12px;
+      transition:
+        transform 0.2s,
+        background 0.2s,
+        box-shadow 0.2s;
+    }
+
+    .zone-experience .experience li::before {
+      content: "▸";
+      position: absolute;
+      left: 16px;
+      top: 12px;
+      color: var(--green);
+      font-weight: 700;
+      transition: transform 0.2s;
+    }
+
+    .zone-experience .experience li:hover {
+      background: #fff;
+      transform: translateX(8px);
+      box-shadow: 0 8px 22px #1d4ed81f;
+    }
+
+    .zone-experience .experience li:hover::before {
+      transform: translateX(4px);
+    }
+
+    /* ---------- 04 / Skills (violet) ---------- */
+    .zone-skills .skills-list {
+      gap: 14px 18px;
+    }
+
+    .zone-skills .skills-list li {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px 56px 20px 24px;
+      cursor: pointer;
+      overflow: hidden;
+      transition:
+        transform 0.2s,
+        background 0.2s,
+        color 0.2s,
+        box-shadow 0.2s,
+        border-color 0.2s;
+    }
+
+    .zone-skills .skills-list li::before {
+      content: "→";
+      left: auto;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: var(--green);
+      opacity: 0.45;
+      transition:
+        transform 0.2s,
+        opacity 0.2s,
+        color 0.2s;
+    }
+
+    .zone-skills .skills-list li:hover,
+    .zone-skills .skills-list li:focus-visible {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff;
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px #6d28d940;
+      outline: none;
+    }
+
+    .zone-skills .skills-list li:hover::before,
+    .zone-skills .skills-list li:focus-visible::before {
+      color: #fff;
+      opacity: 1;
+      transform: translate(6px, -50%);
+    }
+
+    .zone-skills .skills-list li:active {
+      transform: scale(0.98);
+    }
+
+    /* ---------- 05 / Education (rose) ---------- */
+    .zone-education .card {
+      border-top: 4px solid var(--green);
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+
+    .zone-education .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--green);
+      box-shadow: 0 16px 32px #be123c24;
+    }
+    /* ===================================================================== */
 
     .section-head {
       display: grid;
@@ -456,7 +637,7 @@
 
     .tag {
       font-size: 11px;
-      background: var(--tag-bg, #e6f5f2);
+      background: #e6f5f2;
       color: var(--green);
       padding: 5px 10px;
       border-radius: 12px;
@@ -1077,6 +1258,10 @@
       .profile:focus-within,
       .button:hover,
       .feedback-card:hover,
+      .zone-recognition .feedback-card:hover,
+      .zone-experience .experience li:hover,
+      .zone-skills .skills-list li:hover,
+      .zone-education .card:hover,
       .portrait-link:hover img,
       .thumb:hover img {
         transform: none;
@@ -1351,7 +1536,7 @@
       </div>
     </section>
 
-    <section id="feedback" class="zone">
+    <section id="feedback" class="zone zone-recognition">
       <div class="section-head">
         <div>
           <p class="eyebrow">02 / Recognition</p>
@@ -1383,7 +1568,7 @@
       </noscript>
     </section>
 
-    <section id="experience" class="zone">
+    <section id="experience" class="zone zone-experience">
       <div class="section-head">
         <div>
           <p class="eyebrow">03 / Experience</p>
@@ -1425,7 +1610,7 @@
       </article>
     </section>
 
-    <section id="skills" class="zone">
+    <section id="skills" class="zone zone-skills">
       <div class="section-head">
         <div>
           <p class="eyebrow">04 / Skills</p>
@@ -1438,16 +1623,16 @@
       </div>
 
       <ul class="skills-list">
-        <li>Data Analysis &amp; Business Intelligence</li>
-        <li>Advanced Excel &amp; MIS Reporting</li>
-        <li>ERP Development &amp; Enhancement</li>
-        <li>Dashboard Development &amp; AI Productivity Tools</li>
-        <li>Accounts, Quarry, Plant &amp; Dispatch Operations</li>
-        <li>Team Leadership &amp; Collaboration</li>
+        <li tabindex="0">Data Analysis &amp; Business Intelligence</li>
+        <li tabindex="0">Advanced Excel &amp; MIS Reporting</li>
+        <li tabindex="0">ERP Development &amp; Enhancement</li>
+        <li tabindex="0">Dashboard Development &amp; AI Productivity Tools</li>
+        <li tabindex="0">Accounts, Quarry, Plant &amp; Dispatch Operations</li>
+        <li tabindex="0">Team Leadership &amp; Collaboration</li>
       </ul>
     </section>
 
-    <section id="education" class="zone">
+    <section id="education" class="zone zone-education">
       <div class="section-head">
         <div>
           <p class="eyebrow">05 / Education</p>
