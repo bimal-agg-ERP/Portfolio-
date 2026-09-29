@@ -36,6 +36,7 @@
       color: var(--ink);
       font-family: Arial, Helvetica, sans-serif;
       line-height: 1.65;
+      overflow-x: hidden;
     }
 
     a {
@@ -369,223 +370,215 @@
       border-bottom: 1px solid var(--line);
     }
 
-    /* ========== SECTION 02 — RECOGNITION (teal / mint theme) ========== */
-    #feedback {
-      background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%);
-      border-bottom-color: #a7f3d0;
+    /* =====================================================================
+       Separate color per section (02 → 05).
+       Each .zone-* sets its own palette through CSS variables:
+         --zone-bg : full-width background band
+         --green   : accent color   --lime : highlight color
+         --line    : borders        --soft : soft tinted panels
+       ===================================================================== */
+    .zone {
+      background: var(--zone-bg);
+      /* extends the background edge-to-edge without changing layout */
+      box-shadow: 0 0 0 100vmax var(--zone-bg);
+      clip-path: inset(0 -100vmax);
     }
 
-    #feedback .eyebrow {
-      color: #0d9488;
+    .zone-recognition {
+      --zone-bg: #fff8ec;
+      --green: #b45309;
+      --lime: #fde68a;
+      --line: #f0dcbc;
+      --soft: #fdefd2;
     }
 
-    #feedback .section-head h2 {
-      color: #064e3b;
+    .zone-experience {
+      --zone-bg: #eef4ff;
+      --green: #1d4ed8;
+      --lime: #bfdbfe;
+      --line: #cfdcf5;
+      --soft: #dbe7fd;
     }
 
-    #feedback .section-head p {
-      color: #065f46;
+    .zone-skills {
+      --zone-bg: #f5f0ff;
+      --green: #6d28d9;
+      --lime: #ddd6fe;
+      --line: #e0d5f7;
+      --soft: #e9e0fc;
     }
 
-    #feedback .card {
-      background: white;
-      border-color: #a7f3d0;
-      box-shadow: 0 4px 14px rgba(13, 148, 136, 0.08);
+    .zone-education {
+      --zone-bg: #fff0f3;
+      --green: #be123c;
+      --lime: #fecdd3;
+      --line: #f6cfd6;
+      --soft: #fde0e6;
     }
 
-    #feedback .card:hover {
-      box-shadow: 0 10px 28px rgba(13, 148, 136, 0.18);
+    /* ---------- 02 / Recognition (amber) ---------- */
+    .zone-recognition .feedback-card {
+      border-color: var(--line);
+      border-top: 4px solid var(--green);
+      transition:
+        transform 0.25s,
+        box-shadow 0.25s,
+        border-color 0.25s;
+    }
+
+    .zone-recognition .feedback-card:nth-child(2) {
+      border-top-color: var(--green);
+    }
+
+    .zone-recognition .feedback-card:hover,
+    .zone-recognition .feedback-card:focus-within {
+      transform: translateY(-8px);
+      border-color: var(--green);
+      box-shadow: 0 18px 36px #b4530930;
+    }
+
+    .zone-recognition .thumb {
+      border-color: var(--line);
+      cursor: zoom-in;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .zone-recognition .thumb:hover {
+      box-shadow: 0 8px 22px #b4530926;
+    }
+
+    .zone-recognition .gallery-item figcaption::after {
+      content: " · Click to enlarge ↗";
+      color: var(--green);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .zone-recognition .feedback-card:hover figcaption::after,
+    .zone-recognition .feedback-card:focus-within figcaption::after {
+      opacity: 1;
+    }
+
+    /* ---------- 03 / Experience (blue) ---------- */
+    .zone-experience .experience {
+      background: var(--soft);
+      border-left: 6px solid var(--green);
+    }
+
+    .zone-experience .experience .date {
+      display: inline-block;
+      background: var(--green);
+      color: #fff;
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin: 0 0 8px;
+    }
+
+    .zone-experience .experience ul {
+      list-style: none;
+      padding: 0;
+      margin: 15px 0 0;
+    }
+
+    .zone-experience .experience li {
+      position: relative;
+      margin: 8px 0;
+      padding: 12px 16px 12px 42px;
+      border-radius: 12px;
+      transition:
+        transform 0.2s,
+        background 0.2s,
+        box-shadow 0.2s;
+    }
+
+    .zone-experience .experience li::before {
+      content: "▸";
+      position: absolute;
+      left: 16px;
+      top: 12px;
+      color: var(--green);
+      font-weight: 700;
+      transition: transform 0.2s;
+    }
+
+    .zone-experience .experience li:hover {
+      background: #fff;
+      transform: translateX(8px);
+      box-shadow: 0 8px 22px #1d4ed81f;
+    }
+
+    .zone-experience .experience li:hover::before {
+      transform: translateX(4px);
+    }
+
+    /* ---------- 04 / Skills (violet) ---------- */
+    .zone-skills .skills-list {
+      gap: 14px 18px;
+    }
+
+    .zone-skills .skills-list li {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px 56px 20px 24px;
+      cursor: pointer;
+      overflow: hidden;
+      transition:
+        transform 0.2s,
+        background 0.2s,
+        color 0.2s,
+        box-shadow 0.2s,
+        border-color 0.2s;
+    }
+
+    .zone-skills .skills-list li::before {
+      content: "→";
+      left: auto;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: var(--green);
+      opacity: 0.45;
+      transition:
+        transform 0.2s,
+        opacity 0.2s,
+        color 0.2s;
+    }
+
+    .zone-skills .skills-list li:hover,
+    .zone-skills .skills-list li:focus-visible {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff;
       transform: translateY(-4px);
+      box-shadow: 0 14px 28px #6d28d940;
+      outline: none;
     }
 
-    #feedback .feedback-card {
-      border-top: 4px solid #0d9488;
-      border-radius: 20px;
+    .zone-skills .skills-list li:hover::before,
+    .zone-skills .skills-list li:focus-visible::before {
+      color: #fff;
+      opacity: 1;
+      transform: translate(6px, -50%);
     }
 
-    #feedback .feedback-card:nth-child(2) {
-      border-top-color: #14b8a6;
+    .zone-skills .skills-list li:active {
+      transform: scale(0.98);
     }
 
-    #feedback .feedback-card:nth-child(3) {
-      border-top-color: #2dd4bf;
+    /* ---------- 05 / Education (rose) ---------- */
+    .zone-education .card {
+      border-top: 4px solid var(--green);
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
     }
 
-    #feedback .feedback-card h3 {
-      color: #064e3b;
+    .zone-education .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--green);
+      box-shadow: 0 16px 32px #be123c24;
     }
-
-    #feedback .feedback-card .person {
-      color: #0d9488;
-      font-weight: 700;
-    }
-
-    #feedback .feedback-card .thumb {
-      border-color: #a7f3d0;
-      background: #f0fdfa;
-    }
-
-    #feedback .feedback-card .thumb:hover {
-      border-color: #0d9488;
-      background: #ccfbf1;
-    }
-    /* ========== END SECTION 02 ========== */
-
-    /* ========== SECTION 03 — EXPERIENCE (indigo / violet theme) ========== */
-    #experience {
-      background: linear-gradient(180deg, #eef2ff 0%, #e0e7ff 100%);
-      border-bottom-color: #c7d2fe;
-    }
-
-    #experience .eyebrow {
-      color: #4f46e5;
-    }
-
-    #experience .section-head h2 {
-      color: #312e81;
-    }
-
-    #experience .section-head p {
-      color: #4338ca;
-    }
-
-    #experience .experience {
-      background: white;
-      border: 1px solid #c7d2fe;
-      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.08);
-      border-radius: 24px;
-      padding: 36px;
-    }
-
-    #experience .experience:hover {
-      box-shadow: 0 14px 34px rgba(79, 70, 229, 0.16);
-    }
-
-    #experience .experience .date {
-      color: #4f46e5;
-      font-weight: 800;
-      letter-spacing: 0.4px;
-    }
-
-    #experience .experience strong {
-      color: #312e81;
-      font-size: 15px;
-    }
-
-    #experience .experience h3 {
-      color: #312e81;
-    }
-
-    #experience .experience ul {
-      color: #3730a3;
-    }
-
-    #experience .experience li {
-      padding-left: 6px;
-    }
-
-    #experience .experience li::marker {
-      color: #4f46e5;
-    }
-    /* ========== END SECTION 03 ========== */
-
-    /* ========== SECTION 04 — SKILLS (rose / pink theme) ========== */
-    #skills {
-      background: linear-gradient(180deg, #fff1f2 0%, #ffe4e6 100%);
-      border-bottom-color: #fecdd3;
-    }
-
-    #skills .eyebrow {
-      color: #e11d48;
-    }
-
-    #skills .section-head h2 {
-      color: #881337;
-    }
-
-    #skills .section-head p {
-      color: #9f1239;
-    }
-
-    #skills .skills-list {
-      background: white;
-      border-radius: 24px;
-      padding: 12px 30px;
-      border: 1px solid #fecdd3;
-      box-shadow: 0 6px 20px rgba(225, 29, 72, 0.08);
-    }
-
-    #skills .skills-list li {
-      border-bottom-color: #fecdd3;
-      color: #881337;
-      font-weight: 700;
-      transition: background 0.2s, padding-left 0.2s;
-    }
-
-    #skills .skills-list li:last-child {
-      border-bottom: 0;
-    }
-
-    #skills .skills-list li::before {
-      color: #e11d48;
-      font-size: 28px;
-      top: 8px;
-    }
-
-    #skills .skills-list li:hover {
-      background: #fff1f2;
-      padding-left: 34px;
-      border-radius: 10px;
-    }
-    /* ========== END SECTION 04 ========== */
-
-    /* ========== SECTION 05 — EDUCATION (amber / gold theme) ========== */
-    #education {
-      background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%);
-      border-bottom-color: #fde68a;
-    }
-
-    #education .eyebrow {
-      color: #d97706;
-    }
-
-    #education .section-head h2 {
-      color: #78350f;
-    }
-
-    #education .card {
-      background: white;
-      border-color: #fde68a;
-      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.08);
-    }
-
-    #education .card:hover {
-      box-shadow: 0 10px 28px rgba(217, 119, 6, 0.18);
-      transform: translateY(-4px);
-    }
-
-    #education .card h3 {
-      color: #78350f;
-    }
-
-    #education .card p {
-      color: #b45309;
-      font-weight: 600;
-    }
-
-    #education .certificate {
-      color: #92400e;
-    }
-
-    #education .certificate a {
-      color: #d97706;
-      font-weight: 700;
-    }
-
-    #education .certificate a:hover {
-      color: #b45309;
-    }
-    /* ========== END SECTION 05 ========== */
+    /* ===================================================================== */
 
     .section-head {
       display: grid;
@@ -669,6 +662,10 @@
 
     .project .eyebrow {
       margin-bottom: 12px;
+    }
+
+    .project-link {
+      margin-top: 26px;
     }
 
     .report-gallery {
@@ -794,29 +791,6 @@
 
     .erp-list strong {
       color: var(--ink);
-    }
-
-    .project-github-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: var(--ink);
-      color: white;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 14px;
-      border: 1px solid var(--ink);
-      transition: background 0.2s, transform 0.2s;
-    }
-
-    .project-github-link:hover {
-      background: var(--green);
-      border-color: var(--green);
-      transform: translateY(-2px);
-      text-decoration: none;
     }
 
     .feedback-grid {
@@ -1284,6 +1258,10 @@
       .profile:focus-within,
       .button:hover,
       .feedback-card:hover,
+      .zone-recognition .feedback-card:hover,
+      .zone-experience .experience li:hover,
+      .zone-skills .skills-list li:hover,
+      .zone-education .card:hover,
       .portrait-link:hover img,
       .thumb:hover img {
         transform: none;
@@ -1306,6 +1284,11 @@
       .hero,
       section {
         padding: 20px 0;
+      }
+
+      .zone {
+        box-shadow: none;
+        clip-path: none;
       }
 
       .contact {
@@ -1538,21 +1521,22 @@
             </li>
           </ul>
 
-          <a
-            class="project-github-link"
-            href="https://github.com/bimal-agg-ERP?tab=repositories"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View project on GitHub
-            <span aria-hidden="true">↗</span>
-          </a>
+          <div class="project-link">
+            <a
+              class="button"
+              href="https://github.com/bimal-agg-ERP?tab=repositories"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View all ERP projects on GitHub
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </article>
       </div>
     </section>
 
-    <!-- 02 / Recognition — TEAL theme -->
-    <section id="feedback">
+    <section id="feedback" class="zone zone-recognition">
       <div class="section-head">
         <div>
           <p class="eyebrow">02 / Recognition</p>
@@ -1584,8 +1568,7 @@
       </noscript>
     </section>
 
-    <!-- 03 / Experience — INDIGO theme -->
-    <section id="experience">
+    <section id="experience" class="zone zone-experience">
       <div class="section-head">
         <div>
           <p class="eyebrow">03 / Experience</p>
@@ -1627,8 +1610,7 @@
       </article>
     </section>
 
-    <!-- 04 / Skills — ROSE theme -->
-    <section id="skills">
+    <section id="skills" class="zone zone-skills">
       <div class="section-head">
         <div>
           <p class="eyebrow">04 / Skills</p>
@@ -1641,17 +1623,16 @@
       </div>
 
       <ul class="skills-list">
-        <li>Data Analysis &amp; Business Intelligence</li>
-        <li>Advanced Excel &amp; MIS Reporting</li>
-        <li>ERP Development &amp; Enhancement</li>
-        <li>Dashboard Development &amp; AI Productivity Tools</li>
-        <li>Accounts, Quarry, Plant &amp; Dispatch Operations</li>
-        <li>Team Leadership &amp; Collaboration</li>
+        <li tabindex="0">Data Analysis &amp; Business Intelligence</li>
+        <li tabindex="0">Advanced Excel &amp; MIS Reporting</li>
+        <li tabindex="0">ERP Development &amp; Enhancement</li>
+        <li tabindex="0">Dashboard Development &amp; AI Productivity Tools</li>
+        <li tabindex="0">Accounts, Quarry, Plant &amp; Dispatch Operations</li>
+        <li tabindex="0">Team Leadership &amp; Collaboration</li>
       </ul>
     </section>
 
-    <!-- 05 / Education — AMBER theme -->
-    <section id="education">
+    <section id="education" class="zone zone-education">
       <div class="section-head">
         <div>
           <p class="eyebrow">05 / Education</p>
